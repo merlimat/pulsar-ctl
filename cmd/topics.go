@@ -34,16 +34,25 @@ Delete a topic
 `,
 }
 
+func topicsList() {
+	var listCmd = &cobra.Command{
+		Use:   "list",
+		Short: "Get the list of topics under a namespace",
+		// Long: `Manage tenants`,
+		Example: "pulsar-ctl topics list my-tenant/my-namespace",
+		Args:    cobra.ExactArgs(1),
+
+		Run: func(cmd *cobra.Command, args []string) {
+			RestPrintStringList()
+		},
+	}
+
+	topicsCmd.AddCommand(listCmd);
+}
+
+
 func init() {
+	topicsList()
+
 	rootCmd.AddCommand(topicsCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// tenantsCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// tenantsCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

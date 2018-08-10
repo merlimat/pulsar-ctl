@@ -17,9 +17,6 @@ func prepareRequest() *resty.Request {
 }
 
 func RestPut(path string, content interface{}) {
-	//fmt.Println("content: ", content)
-	//var body, err = json.Marshal(content);
-	//fmt.Println("Body: ", body, " -- err: ", err)
 	resp, err := prepareRequest().
 		SetBody(content).
 		Put(adminUrl + path)
@@ -74,6 +71,10 @@ func RestGet(path string) string {
 	var out = bytes.Buffer{}
 	json.Indent(&out, resp.Body(), "", "   ")
 	return out.String()
+}
+
+func RestPrint(path string) {
+	fmt.Println(RestGet( path))
 }
 
 func RestGetStringList(path string) []string {
